@@ -1,23 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="author" content="Denis Sergeev" />
-  <title>Exo-convection</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Supplement to the exo-convection paper</title>
+  <meta name="author" content="Denis Sergeev" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap custom CSS -->
+  <link href="custom.css" rel="stylesheet">
+
 </head>
+
 <body>
-  <h1>
-    Trappist-1e
-  </h1>
-  <p>
-    Cloud condensate, surface temperature, and free troposphere wind vectors in the MassFlux Trappist-1e simulation.
-    The cloud condensate is shown using a threshold of total cloud condensate (liquid water plus ice).
-  </p>
-  <p>
-    <iframe src="./view_scene.html?fileURL=./data/scene/trap1e_grcs_110d_view3d.vtkjs" width="1024px" height="768px"></iframe>
-  </p>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow">
+    <div class="container h-100">
+      <a class="navbar-brand" href="#">Supplement to the exo-convection paper</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Paper</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/dennissergeev/exoconvection-apj-2020">Code</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header>
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+          <h1 class="font-weight-light">Simulation of the Trappist-1e case</h1>
+          <p class="lead">Interactive 3D visualisation</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="pretty container-fluid d-flex justify-content-center">
+    <div class="row">
+      <div class="col-36">
+        <div class="card">
+          <div class="card-body" align="center">
+            <iframe class="iframe3d col-lg-36" src="./view_scene.html?fileURL=./data/scene/trap1e_grcs_110d_view3d.vtkjs"></iframe>
+            <div>
+              Cloud condensate, surface temperature, and free troposphere wind vectors in the <i>MassFlux</i> Trappist-1e simulation. The cloud condensate is shown using a threshold of total cloud condensate (liquid water plus ice).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
