@@ -6,13 +6,14 @@ from pathlib import Path
 topdir = Path(__file__).absolute().parent.parent
 
 # Modelling results
-datadir = topdir / "modelling" / "um" / "results"
+datadir = topdir.parent / "modelling" / "um" / "results"
 
 nsdir = datadir / "ns"  # nesting suites directory
 sadir = datadir / "sa"  # standalone suites directory
 
 # Plotting output
 plotdir = topdir / "plots"
+plotdir.mkdir(parents=True, exist_ok=True)
 
 
 def lsdir(path):
