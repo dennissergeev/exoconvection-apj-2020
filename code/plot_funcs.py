@@ -4,6 +4,8 @@ import cartopy.crs as ccrs
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 
+from scipy import interpolate
+
 
 CART_KW = dict(transform=ccrs.PlateCarree())
 
@@ -16,9 +18,27 @@ MARKER_KW = dict(
 )
 
 
-def use_style():
-    """Load custom matplotlib style sheet."""
-    plt.style.use("paper.mplstyle")
+def add_aux_yticks(
+    ax, src_points, src_values, target_points, twin_ax_ylim=None, twin_ax_inv=False
+):
+    """
+    Add Y-axis ticks at desired locations.
+
+    Examples
+    --------
+    >>> ax = plt.axes()
+    >>> ax.plot(temperature, pressure)
+    >>> add_aux_yticks(ax, heights, pressure, [0, 10, 40], twin_ax_ylim=[0, 40], twin_ax_inv=True)
+    """
+    int_func = interpolate.interp1d(src_points, src_values, fill_value="extrapolate")
+    new_points = int_func(target_points)
+    _ax = ax.twinx()
+    _ax.set_ylim(twin_ax_ylim)
+    _ax.set_yticks(new_points)
+    _ax.set_yticklabels(target_points)
+    if twin_ax_inv:
+        _ax.invert_yaxis()
+    return _ax
 
 
 def add_custom_legend(ax, styles_and_labels, **leg_kw):
@@ -48,3 +68,8 @@ def add_custom_legend(ax, styles_and_labels, **leg_kw):
     leg = ax.legend(lines, styles_and_labels.keys(), **leg_kw)
     if ax.legend_ is not None:
         ax.add_artist(leg)
+
+
+def use_style():
+    """Load custom matplotlib style sheet."""
+    plt.style.use("paper.mplstyle")
