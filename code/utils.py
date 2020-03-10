@@ -25,3 +25,10 @@ def create_logger(script_path, subdir="logs"):
         ],
     )
     return logger
+
+
+def tex2cf_units(unit_str):
+    """Convert a TeX string to a string that can be used in cf_units."""
+    return (
+        unit_str.replace("$", "").replace("{", "").replace("}", "").replace("^", "**")
+    )
