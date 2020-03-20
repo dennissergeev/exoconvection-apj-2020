@@ -12,6 +12,7 @@ output_name_prefix = (
 GLM_MODEL_TIMESTEP = 86400 / 72
 GLM_RUNID = r"umglaa"  # file prefix
 GLM_FILE_REGEX = GLM_RUNID + r".p[b,c,d,e]{1}[0]{6}(?P<timestamp>[0-9]{2,4})_00"
+GLM_START_DAY = 1440  # by default, use only the last 360 days of a 5 year run
 
 model_colors = {
     "grcs": {"global": "deepskyblue", "lam": "navy"},

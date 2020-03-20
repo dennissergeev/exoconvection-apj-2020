@@ -5,11 +5,10 @@
 # Commonly used standard library tools
 import argparse
 from pathlib import Path
-import re
 from time import time
+import re
 import warnings
 
-# Scientific stack
 import iris
 
 # My packages and local scripts
@@ -23,6 +22,7 @@ from aeolus.core import Run
 from aeolus.grid import roll_cube_pm180
 from aeolus.subset import CM_MEAN_CONSTR
 
+from commons import GLM_FILE_REGEX, GLM_MODEL_TIMESTEP, GLM_RUNID, GLM_START_DAY
 import mypaths
 from utils import create_logger
 
@@ -30,14 +30,6 @@ from utils import create_logger
 # Global definitions and styles
 warnings.filterwarnings("ignore")
 SCRIPT = Path(__file__).name
-
-# Common paths
-run_keys = ["base"]  # use only base run
-
-MODEL_TIMESTEP = 86400 / 72  # in seconds
-RUNID = r"umglaa"  # file prefix
-FILE_REGEX = RUNID + r".p[b,c,d,e]{1}[0]{6}(?P<timestamp>[0-9]{2,4})_00"
-DEFAULT_START_DAY = 1440  # by default, use only the last 360 days of a 5 year run
 
 # Selected variables
 SINGLE_LEVEL_VARS = [
@@ -84,7 +76,7 @@ def parse_args(args=None):
         "-s",
         "--startday",
         type=int,
-        default=DEFAULT_START_DAY,
+        default=GLM_START_DAY,
         help="Load files with timestamp >= this",
     )
 
@@ -92,7 +84,7 @@ def parse_args(args=None):
 
 
 def process_cubes(
-    cubelist, timestep=MODEL_TIMESTEP, ref_cube_constr="specific_humidity"
+    cubelist, timestep=GLM_MODEL_TIMESTEP, ref_cube_constr="specific_humidity"
 ):
     """Post-process data for easier analysis."""
     cubes = iris.cube.CubeList()
@@ -142,9 +134,9 @@ def process_cubes(
 
 def get_filename_list(
     path_to_dir,
-    glob_pattern=f"{RUNID}*",
+    glob_pattern=f"{GLM_RUNID}*",
     ts_start=0,
-    regex=FILE_REGEX,
+    regex=GLM_FILE_REGEX,
     regex_key="timestamp",
 ):
     """Get a list of files with timestamps greater or equal than start in a directory."""
@@ -176,7 +168,7 @@ def main(args=None):
     L.debug(f"fnames = {fnames[0]} ... {fnames[-1]}")
 
     # Initialise a `Run` by loading data from the selected files
-    run = Run(files=fnames, name=label, planet=planet, timestep=MODEL_TIMESTEP)
+    run = Run(files=fnames, name=label, planet=planet, timestep=GLM_MODEL_TIMESTEP)
 
     # Regrid & interpolate data
     run.proc_data(process_cubes, timestep=run.timestep)
