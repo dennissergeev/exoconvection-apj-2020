@@ -91,7 +91,9 @@ def parse_args(args=None):
     return ap.parse_args(args)
 
 
-def process_cubes(cubelist, timestep=MODEL_TIMESTEP, ref_cube_constr="specific_humidity"):
+def process_cubes(
+    cubelist, timestep=MODEL_TIMESTEP, ref_cube_constr="specific_humidity"
+):
     """Post-process data for easier analysis."""
     cubes = iris.cube.CubeList()
 
@@ -138,6 +140,23 @@ def process_cubes(cubelist, timestep=MODEL_TIMESTEP, ref_cube_constr="specific_h
     return r_cubes
 
 
+def get_filename_list(
+    path_to_dir,
+    glob_pattern=f"{RUNID}*",
+    ts_start=0,
+    regex=FILE_REGEX,
+    regex_key="timestamp",
+):
+    """Get a list of files with timestamps greater or equal than start in a directory."""
+    fnames = []
+    for fpath in sorted(path_to_dir.glob(glob_pattern)):
+        match = re.match(regex, fpath.name)
+        if match:
+            if int(match[regex_key]) >= ts_start:
+                fnames.append(fpath)
+    return fnames
+
+
 def main(args=None):
     """Main entry point of the script."""
     # Parse command-line arguments
@@ -146,36 +165,25 @@ def main(args=None):
     run_key = args.run
 
     label = f"{planet}_{run_key}"
+    L.info(f"label = {label}")
 
     # Create a subdirectory for processed data
     outdir = mypaths.sadir / label / "_processed"
     outdir.mkdir(parents=True, exist_ok=True)
 
     # Make a list of files matching the file mask and the start day threshold
-    fnames = []
-    for fpath in sorted((mypaths.sadir / label).glob(RUNID + "*")):
-        match = re.match(FILE_REGEX, fpath.name,)
-        if match:
-            if int(match["timestamp"]) >= args.startday:  #
-                fnames.append(fpath)
+    fnames = get_filename_list(mypaths.sadir / label, ts_start=args.startday)
+    L.debug(f"fnames = {fnames[0]} ... {fnames[-1]}")
+
     # Initialise a `Run` by loading data from the selected files
     run = Run(files=fnames, name=label, planet=planet, timestep=MODEL_TIMESTEP)
 
     # Regrid & interpolate data
     run.proc_data(process_cubes, timestep=run.timestep)
 
-    # Remove planet_conf attribute before saving
-    cubes_out = iris.cube.CubeList()
-    for cube in run.proc:
-        try:
-            cube.attributes.pop("planet_conf")
-        except KeyError:
-            pass
-        cubes_out.append(cube)
-
     # Write the data to a netCDF file
     fname_out = outdir / f"{run.name}.nc"
-    iris.save(cubes_out, str(fname_out))
+    run.to_netcdf(fname_out)
     L.success(f"Saved to {fname_out}")
 
 
