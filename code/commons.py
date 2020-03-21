@@ -38,12 +38,10 @@ SS_REGION = Region(
 # ]
 ENS_LABELS = [
     "base",
-    "grcs_ens",
     "amdet_fac_0p01",
     "amdet_fac_0p1",
     "amdet_fac_10p0",
     "amdet_fac_20p0",
-    "base",
     "cape_timescale_14400",
     "cape_timescale_1800",
     "cape_timescale_28800",
@@ -86,5 +84,4 @@ ENS_LABELS = [
     "w_cape_limit_0p1",
     "w_cape_limit_10p0",
     "w_cape_limit_1p0",
-    "rose-app",
 ]

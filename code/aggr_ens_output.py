@@ -28,6 +28,7 @@ from gl_diag import (
     DIAGS,
     ONLY_GLOBAL,
     ONLY_LAM,
+    calc_derived_cubes,
 )
 import mypaths
 from utils import create_logger
@@ -51,7 +52,7 @@ def main():
                 pass
             value = float(cube.data)
         except (MissingCubeError, iris.exceptions.ConstraintMismatchError) as e:
-            L.debug(f"Caught exception:\n{e}")
+            L.debug(f"Caught exception:\n{e}\n")
             value = np.nan
         return value
 
@@ -69,6 +70,8 @@ def main():
                 planet=planet,
                 processed=True,
             )
+            # Derive additional fields
+            run.add_data(calc_derived_cubes)
 
             data = {}
             for vrbl, _calc in DIAGS.items():

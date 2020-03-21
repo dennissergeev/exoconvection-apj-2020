@@ -28,8 +28,6 @@ def main(args=None):
     args = parse_args(args)
     planet = args.planet
     topdir = mypaths.sadir / f"{planet}_grcs_ensemble"
-    labels = ["base"]
-    L.debug(f"labels = {labels}")
     for label in ENS_LABELS:
         L.info(f"label = {label}")
         if label == "base":
