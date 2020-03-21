@@ -11,7 +11,7 @@ import warnings
 # My packages and local scripts
 from aeolus.core import Run
 
-from commons import GLM_MODEL_TIMESTEP
+from commons import GLM_MODEL_TIMESTEP, ENS_LABELS
 import mypaths
 from proc_global_um_output import get_filename_list, parse_args, process_cubes
 from utils import create_logger, pprint_dict
@@ -29,12 +29,8 @@ def main(args=None):
     planet = args.planet
     topdir = mypaths.sadir / f"{planet}_grcs_ensemble"
     labels = ["base"]
-    labels += [
-        i.with_suffix("").name.replace("rose-app-", "")
-        for i in sorted(Path(str(topdir) + "_conf").glob("rose-app-*"))
-    ]
     L.debug(f"labels = {labels}")
-    for label in labels:
+    for label in ENS_LABELS:
         L.info(f"label = {label}")
         if label == "base":
             config_str = ""
