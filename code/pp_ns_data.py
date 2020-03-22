@@ -82,7 +82,7 @@ def main(args=None):
             run.proc_data(process_cubes, timestep=run.timestep)
 
             # Write the data to a netCDF file
-            fname_out = outdir / f"{run.name}.nc"
+            fname_out = outdir / f"{run.name}_{_cycle}.nc"
             run.to_netcdf(fname_out)
             L.success(f"Saved to {fname_out}")
 
