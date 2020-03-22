@@ -1,28 +1,65 @@
 """Definitions and objects commonly used between scripts."""
+from datetime import datetime
+from pathlib import Path
+
+import iris
+
 from aeolus.region import Region
 
+# Selected variables
+SINGLE_LEVEL_VARS = [
+    "surface_temperature",
+    "toa_incoming_shortwave_flux",
+    "toa_outgoing_longwave_flux",
+    "toa_outgoing_longwave_flux_assuming_clear_sky",
+    "toa_outgoing_shortwave_flux",
+    "toa_outgoing_shortwave_flux_assuming_clear_sky",
+    "surface_downwelling_shortwave_flux_in_air",
+    "upwelling_shortwave_flux_in_air",
+    "surface_downwelling_longwave_flux_in_air",
+    "upwelling_longwave_flux_in_air",
+    "surface_upward_sensible_heat_flux",
+    "surface_upward_latent_heat_flux",
+    "convective_rainfall_flux",
+    "convective_snowfall_flux",
+    "high_type_cloud_area_fraction",
+    "low_type_cloud_area_fraction",
+    "medium_type_cloud_area_fraction",
+    "stratiform_rainfall_flux",
+    "stratiform_snowfall_flux",
+]
+MULTI_LEVEL_VARS = [
+    "air_potential_temperature",
+    "air_pressure",
+    "mass_fraction_of_cloud_liquid_water_in_air",
+    "mass_fraction_of_cloud_ice_in_air",
+    "relative_humidity",
+    "specific_humidity",
+    "upward_air_velocity",
+]
+HORIZ_WINDS_NAMES = ["x_wind", "y_wind"]
+HORIZ_WINDS_STASH = ["m01s30i001", "m01s30i002"]
+INCR_CONSTR = iris.AttributeConstraint(STASH=lambda x: x.item in [181, 182, 233])
+
+# Common parameters
+DAYSIDE = Region(-90, 90, -90, 90, "dayside")
+NIGHTSIDE = Region(90, -90, -90, 90, "nightside")
+
+DT_FMT = "%Y%m%dT%H%MZ"
 
 RUN_ALIASES = {"grcs": "MassFlux", "llcs_all_rain": "Adjust", "acoff": "NoCnvPm"}
 PLANET_ALIASES = {"trap1e": "Trappist-1e", "proxb": "Proxima b"}
-output_name_prefix = (
+OUTPUT_NAME_PREFIX = (
     f"{'_'.join(PLANET_ALIASES.keys())}__{'_'.join(RUN_ALIASES.keys())}"
 )
 
-# Global model parameters
+# Global simulation parameters
 GLM_MODEL_TIMESTEP = 86400 / 72
 GLM_RUNID = r"umglaa"  # file prefix
 GLM_FILE_REGEX = GLM_RUNID + r".p[b,c,d,e]{1}[0]{6}(?P<timestamp>[0-9]{2,4})_00"
 GLM_START_DAY = 1440  # by default, use only the last 360 days of a 5 year run
 
-model_colors = {
-    "grcs": {"global": "deepskyblue", "lam": "navy"},
-}
-
-DT_FMT = "%Y%m%dT%H%MZ"
-
-DAYSIDE = Region(-90, 90, -90, 90, "dayside")
-NIGHTSIDE = Region(90, -90, -90, 90, "nightside")
-
+# Nesting Suite parameters
 # NS domain
 ns_centre = (10, 0)
 SS_REGION = Region(
@@ -32,6 +69,24 @@ SS_REGION = Region(
     ns_centre[1] + 10,
     "substellar_region",
 )
+NS_CYCLE_TIMES = {
+    "trap1e_grcs": {"start": datetime(2009, 7, 27, 9, 0), "ndays": 10},
+    "proxb_grcs": {"start": datetime(2009, 7, 27, 9, 0), "ndays": 10},
+}
+NS_RUN_ALIASES = {"grcs": "MassFlux"}
+NS_OUTPUT_NAME_PREFIX = f"{'_'.join(PLANET_ALIASES.keys())}__{'_'.join(RUN_ALIASES.keys())}"
+NS_MODEL_TYPES = {
+    "global": {
+        "path": Path("glm") / "um" / "umglaa_p[a,b,c,d]*",
+        "timestep": GLM_MODEL_TIMESTEP,
+    },
+    "lam": {"path": Path("*") / "*" / "*" / "um" / "umnsaa_p[b,c,d]*", "timestep": 150},
+}
+NS_COLORS = {
+    "grcs": {"global": "deepskyblue", "lam": "navy"},
+}
+
+# Ensemble simulation labels
 # labels += [
 #     i.with_suffix("").name.replace("rose-app-", "")
 #     for i in sorted(Path(str(topdir) + "_conf").glob("rose-app-*"))

@@ -3,6 +3,7 @@
 """Same as `proc_global_um_output.py`, but for multiple folders within the ensemble."""
 
 # Commonly used standard library tools
+import argparse
 import configparser
 from pathlib import Path
 from time import time
@@ -11,15 +12,37 @@ import warnings
 # My packages and local scripts
 from aeolus.core import Run
 
-from commons import GLM_MODEL_TIMESTEP, ENS_LABELS
+from commons import ENS_LABELS, GLM_MODEL_TIMESTEP, GLM_START_DAY
 import mypaths
-from proc_global_um_output import get_filename_list, parse_args, process_cubes
+from proc_um_output import get_filename_list, process_cubes
 from utils import create_logger, pprint_dict
 
 
 # Global definitions and styles
 warnings.filterwarnings("ignore")
 SCRIPT = Path(__file__).name
+
+
+def parse_args(args=None):
+    """Argument parser."""
+    ap = argparse.ArgumentParser(
+        SCRIPT,
+        description=__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+
+    ap.add_argument(
+        "-p", "--planet", type=str, required=True, help="Planet configuration"
+    )
+    ap.add_argument(
+        "-s",
+        "--startday",
+        type=int,
+        default=GLM_START_DAY,
+        help="Load files with timestamp >= this",
+    )
+
+    return ap.parse_args(args)
 
 
 def main(args=None):
