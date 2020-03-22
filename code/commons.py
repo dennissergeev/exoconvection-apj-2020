@@ -74,13 +74,18 @@ NS_CYCLE_TIMES = {
     "proxb_grcs": {"start": datetime(2009, 7, 27, 9, 0), "ndays": 10},
 }
 NS_RUN_ALIASES = {"grcs": "MassFlux"}
-NS_OUTPUT_NAME_PREFIX = f"{'_'.join(PLANET_ALIASES.keys())}__{'_'.join(RUN_ALIASES.keys())}"
+NS_OUTPUT_NAME_PREFIX = (
+    f"{'_'.join(PLANET_ALIASES.keys())}__{'_'.join(RUN_ALIASES.keys())}"
+)
 NS_MODEL_TYPES = {
     "global": {
         "path": Path("glm") / "um" / "umglaa_p[a,b,c,d]*",
         "timestep": GLM_MODEL_TIMESTEP,
     },
-    "lam": {"path": Path("*") / "*" / "*" / "um" / "umnsaa_p[b,c,d]*", "timestep": 150},
+    "lam": {
+        "path": Path("regn_0N10E") / "resn_1" / "ra1t" / "um" / "umnsaa_p[b,c,d]*",
+        "timestep": 150,
+    },
 }
 NS_COLORS = {
     "grcs": {"global": "deepskyblue", "lam": "navy"},
