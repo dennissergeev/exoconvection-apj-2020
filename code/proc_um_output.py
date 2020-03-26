@@ -36,6 +36,7 @@ def process_cubes(
     timestep=GLM_MODEL_TIMESTEP,
     ref_cube_constr="specific_humidity",
     extract_mean=True,
+    regrid_multi_lev=True,
 ):
     """Post-process data for easier analysis."""
     cm_constr = iris.Constraint()
@@ -74,14 +75,15 @@ def process_cubes(
             cube.convert_units(f"{incr_unit} s^-1")
         cubes.append(cube)
 
-    # Interpolation & regridding to common grid
-    ref_cube = cubes.extract_strict(ref_cube_constr)
-    ref_cube = replace_z_coord(ref_cube, UM_HGT)
+    if regrid_multi_lev:
+        # Interpolation & regridding to common grid
+        ref_cube = cubes.extract_strict(ref_cube_constr)
+        ref_cube = replace_z_coord(ref_cube, UM_HGT)
 
-    # Interpolate to common levels
-    cubes = iris.cube.CubeList(
-        [regrid_3d(replace_z_coord(cube, UM_HGT), ref_cube, UM_HGT) for cube in cubes]
-    )
+        # Interpolate to common levels
+        cubes = iris.cube.CubeList(
+            [regrid_3d(replace_z_coord(cube, UM_HGT), ref_cube, UM_HGT) for cube in cubes]
+        )
 
     # Add all single-level cubes
     cubes += cubelist.extract(SINGLE_LEVEL_VARS).extract(cm_constr)
