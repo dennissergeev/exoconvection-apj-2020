@@ -37,4 +37,4 @@ Notebooks for each individual figure as well as for two data tables are in the [
 | 4 | Global top-of-atmosphere cloud radiative effect in the control and sensitivity simulations           | [Tab04-CRE.ipynb](code/Tab04-CRE.ipynb)                     | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
 
 
-`page/` directory is for hosting an HTML page with an [interactive version of Fig. 1](https://github.com/dennissergeev/exoconvection-apj-2020).
+`page/` directory is for hosting an HTML page with an [interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020).
