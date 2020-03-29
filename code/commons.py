@@ -5,6 +5,8 @@ from pathlib import Path
 import iris
 
 from aeolus.region import Region
+from aeolus.subset import _dim_constr
+
 
 # Selected variables
 SINGLE_LEVEL_VARS = [
@@ -83,12 +85,16 @@ NS_MODEL_TYPES = {
     "global": {
         "path": Path("glm") / "um" / f"{GLM_RUNID}_p[a,b,c,d]*",
         "timestep": GLM_MODEL_TIMESTEP,
+        "title": "Global",
     },
     "lam": {
         "path": Path("regn_0N10E") / "resn_1" / "ra1t" / "um" / f"{NS_RUNID}_p[b,c,d]*",
         "timestep": 150,
+        "title": "HighRes",
     },
 }
+FCST_PRD_CNSTR = iris.Constraint(forecast_period=lambda x: 9 < x < 15)
+FCST_DIM_CNSTR = _dim_constr("forecast_period", strict=False)
 NS_COLORS = {
     "grcs": {"global": "deepskyblue", "lam": "navy"},
 }
