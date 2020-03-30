@@ -1,0 +1,28 @@
+name: sergeev2020a
+channels:
+- conda-forge
+- dennissergeev
+dependencies:
+- aeolus>=0.4.3
+- cartopy
+- dask
+- fastprogress
+- ipykernel
+- iris>=2.3
+- jupyter
+- matplotlib
+- metpy
+- mo_pack
+- netCDF4
+- numpy
+- pandas
+- python>=3.7
+- pip
+- pytest
+- pyvista
+- scipy
+- tqdm
+- xarray
+- pip:
+  - latlon23
+  - loguru
