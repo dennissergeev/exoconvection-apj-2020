@@ -32,3 +32,8 @@ def tex2cf_units(unit_str):
     return (
         unit_str.replace("$", "").replace("{", "").replace("}", "").replace("^", "**")
     )
+
+
+def lsdir(path):
+    """List all files and directories in the given path, sorted."""
+    return sorted(path.glob("*"))

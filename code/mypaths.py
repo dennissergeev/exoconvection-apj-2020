@@ -15,6 +15,6 @@ sadir = datadir / "sa"  # standalone suites directory
 plotdir = topdir / "plots"
 plotdir.mkdir(parents=True, exist_ok=True)
 
-
-def lsdir(path):
-    return sorted(path.glob("*"))
+# TeX output (tables)
+tabdir = topdir / "tables"
+tabdir.mkdir(parents=True, exist_ok=True)
