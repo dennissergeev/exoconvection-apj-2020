@@ -6,7 +6,6 @@ dependencies:
 - aeolus>=0.4.3
 - cartopy
 - dask
-- fastprogress
 - ipykernel
 - iris>=2.3
 - jupyter
@@ -19,10 +18,12 @@ dependencies:
 - python>=3.7
 - pip
 - pytest
+- python-stratify
 - pyvista
 - scipy
 - tqdm
 - xarray
 - pip:
+  - fastprogress
   - latlon23
   - loguru

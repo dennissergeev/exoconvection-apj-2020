@@ -30,10 +30,10 @@ Notebooks for each individual figure as well as for two data tables are in the [
 | 15 | [Day-night surface temperature difference vs wind divergence in the free troposphere of the substellar region](plots/trap1e_proxb__grcs__scatter_w_linreg__hdiv_5_20km_ss__t_sfc_diff_dn.pdf)             | [Fig15-Day-Night-Impact-Lin-Reg.ipynb](code/Fig15-Day-Night-Impact-Lin-Reg.ipynb)     | [pp_ens_gl_data.py](code/pp_ens_gl_data.py), [aggr_ens_output.py](code/aggr_ens_output.py), [pp_ns_data.py](code/pp_ns_data.py), [aggr_ns_data.py](code/aggr_ns_data.py) |
 
 ### Tables
-| #  | Figure                                                                                               | Notebook                                                    | Dependencies                                  |
-|---:|:-----------------------------------------------------------------------------------------------------|:------------------------------------------------------------|:----------------------------------------------|
-| 3 | Mean global, day-side, and night-side surface temperature in the control and sensitivity simulations | [Tab03-Mean-Sfc-Temp.ipynb](code/Tab03-Mean-Sfc-Temp.ipynb) | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
-| 4 | Global top-of-atmosphere cloud radiative effect in the control and sensitivity simulations           | [Tab04-CRE.ipynb](code/Tab04-CRE.ipynb)                     | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
+| #  | Figure                                                                                                                                | Notebook                                                    | Dependencies                                  |
+|---:|:--------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------|:----------------------------------------------|
+| 3 | [Mean global, day-side, and night-side surface temperature in the control and sensitivity simulations](tables/mean_sfc_temp_table.tex) | [Tab03-Mean-Sfc-Temp.ipynb](code/Tab03-Mean-Sfc-Temp.ipynb) | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
+| 4 | [Global top-of-atmosphere cloud radiative effect in the control and sensitivity simulations](tables/cre_table.tex)                     | [Tab04-CRE.ipynb](code/Tab04-CRE.ipynb)                     | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
 
 
 `page/` directory is for hosting an HTML page with an [interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020).
