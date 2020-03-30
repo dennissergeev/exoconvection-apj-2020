@@ -27,7 +27,7 @@ PROC_DATA_MAIN=\
 FIGURES=\
     $(FIG_DIR)/trap1e_grcs_110d_view3d__enlarged.png \
     $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__tsfc_winds__plev250hpa.pdf \
-    $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__vprof_daynight_pm01deg__temp_shum \
+    $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__vprof_daynight_pm01deg__temp_shum.pdf \
     $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__ghgt_winds_eddy__250hpa__temp__700hpa.pdf \
     $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__nondim_rossby_rhines__hgt0-15km.pdf \
     $(FIG_DIR)/trap1e_proxb__grcs_llcs_all_rain_acoff__cloud_types__w_precip.pdf \

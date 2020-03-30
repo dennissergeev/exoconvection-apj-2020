@@ -20,6 +20,7 @@ dependencies:
 - pytest
 - python-stratify
 - pyvista
+- scikit-learn
 - scipy
 - tqdm
 - xarray
