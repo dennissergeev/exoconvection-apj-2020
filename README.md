@@ -8,6 +8,8 @@
 Code used to process and visualise the model output.
 Model data are available upon request (raw data O(100 Gb)).
 
+`page/` directory is for hosting an HTML page with an **[interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020)**.
+
 Notebooks for each individual figure as well as for two data tables are in the [`code/` directory](code), while the figures themselves are in the `plots/` directory.
 
 ### Figures
@@ -34,6 +36,3 @@ Notebooks for each individual figure as well as for two data tables are in the [
 |---:|:--------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------|:----------------------------------------------|
 | 3 | [Mean global, day-side, and night-side surface temperature in the control and sensitivity simulations](tables/mean_sfc_temp_table.tex) | [Tab03-Mean-Sfc-Temp.ipynb](code/Tab03-Mean-Sfc-Temp.ipynb) | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
 | 4 | [Global top-of-atmosphere cloud radiative effect in the control and sensitivity simulations](tables/cre_table.tex)                     | [Tab04-CRE.ipynb](code/Tab04-CRE.ipynb)                     | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
-
-
-`page/` directory is for hosting an HTML page with an [interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020).
