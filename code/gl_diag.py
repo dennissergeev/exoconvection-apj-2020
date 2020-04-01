@@ -6,12 +6,7 @@
 from cf_units import Unit
 
 import iris
-from iris.analysis.calculus import (
-    _coord_cos,
-    _curl_differentiate,
-    _curl_regrid,
-    differentiate,
-)
+from iris.analysis.calculus import _coord_cos, _curl_differentiate, _curl_regrid, differentiate
 from iris.analysis.maths import apply_ufunc
 from iris.util import reverse
 from iris.experimental import stratify
@@ -47,19 +42,10 @@ from aeolus.calc import (
 from aeolus.calc.metpy import preprocess_iris
 from aeolus.const import get_planet_radius
 from aeolus.const.const import ScalarCube
-from aeolus.coord_utils import (
-    ensure_bounds,
-    UM_HGT,
-    UM_LATLON,
-    UM_TIME,
-    coord_to_cube,
-)
+from aeolus.coord_utils import ensure_bounds, UM_HGT, UM_LATLON, UM_TIME, coord_to_cube
 from aeolus.exceptions import MissingCubeError
 from aeolus.misc import net_horizontal_flux_to_region
-from aeolus.subset import (
-    _dim_constr,
-    l_range_constr,
-)
+from aeolus.subset import _dim_constr, l_range_constr
 from commons import DAYSIDE, NIGHTSIDE
 
 
@@ -84,20 +70,14 @@ DIAGS = {
     "e_net_toa": toa_net_energy,
     "eta": lambda cl: heat_redist_eff(cl, NIGHTSIDE, DAYSIDE),
     "b_alb": bond_albedo,
-    "toa_olr": lambda cl: spatial(
-        cl.extract_strict("toa_outgoing_longwave_flux"), "mean",
-    ),
-    "toa_osr": lambda cl: spatial(
-        cl.extract_strict("toa_outgoing_shortwave_flux"), "mean",
-    ),
+    "toa_olr": lambda cl: spatial(cl.extract_strict("toa_outgoing_longwave_flux"), "mean"),
+    "toa_osr": lambda cl: spatial(cl.extract_strict("toa_outgoing_shortwave_flux"), "mean"),
     "cre_sw": lambda cl: toa_cloud_radiative_effect(cl, kind="sw"),
     "cre_lw": lambda cl: toa_cloud_radiative_effect(cl, kind="lw"),
     "cre_tot": lambda cl: toa_cloud_radiative_effect(cl, kind="total"),
     "gh_norm": ghe_norm,
     "e_net_sfc": sfc_net_energy,
-    "t_sfc_diff_dn": lambda cl: region_mean_diff(
-        cl, "surface_temperature", DAYSIDE, NIGHTSIDE
-    ),
+    "t_sfc_diff_dn": lambda cl: region_mean_diff(cl, "surface_temperature", DAYSIDE, NIGHTSIDE),
     "t_sfc": lambda cl: spatial(cl.extract_strict("surface_temperature"), "mean"),
     "t_sfc_min": lambda cl: spatial(cl.extract_strict("surface_temperature"), "min"),
     "t_sfc_max": lambda cl: spatial(cl.extract_strict("surface_temperature"), "max"),
@@ -118,18 +98,11 @@ DIAGS = {
     "precip_conv": lambda cl: spatial(precip_sum(cl, ptype="conv"), "mean"),
     "precip_rain": lambda cl: spatial(precip_sum(cl, ptype="rain"), "mean"),
     "precip_snow": lambda cl: spatial(precip_sum(cl, ptype="snow"), "mean"),
-    "cld_h": lambda cl: spatial(
-        cl.extract_strict("high_type_cloud_area_fraction"), "mean",
-    ),
-    "cld_m": lambda cl: spatial(
-        cl.extract_strict("medium_type_cloud_area_fraction"), "mean",
-    ),
-    "cld_l": lambda cl: spatial(
-        cl.extract_strict("low_type_cloud_area_fraction"), "mean",
-    ),
+    "cld_h": lambda cl: spatial(cl.extract_strict("high_type_cloud_area_fraction"), "mean"),
+    "cld_m": lambda cl: spatial(cl.extract_strict("medium_type_cloud_area_fraction"), "mean"),
+    "cld_l": lambda cl: spatial(cl.extract_strict("low_type_cloud_area_fraction"), "mean"),
     "cloud_frac": lambda cl: spatial(
-        cl.extract_strict("cloud_area_fraction_assuming_maximum_random_overlap"),
-        "mean",
+        cl.extract_strict("cloud_area_fraction_assuming_maximum_random_overlap"), "mean"
     ),
     "vflux_q": lambda cl: mean_vertical_eddy_flux(cl, "specific_humidity"),
     "vflux_t": lambda cl: mean_vertical_eddy_flux(cl, "air_temperature"),
@@ -227,9 +200,7 @@ def geopotential_height(cubelist, const=None):
         if const is None:
             const = cube_w_height.attributes["planet_conf"]
         g_hgt = coord_to_cube(cube_w_height, UM_HGT) * const.gravity.asc
-        g_hgt.attributes = {
-            k: v for k, v in cube_w_height.attributes.items() if k != "STASH"
-        }
+        g_hgt.attributes = {k: v for k, v in cube_w_height.attributes.items() if k != "STASH"}
         ensure_bounds(g_hgt, [UM_HGT])
         g_hgt.rename("geopotential_height")
         g_hgt.convert_units("m^2 s^-2")
@@ -319,9 +290,7 @@ def meridional_mass_streamfunction(cubelist, z_coord=UM_HGT):
         # pres = cubelist.extract_strict("air_pressure")
         # mmstreamf_const /= const.gravity.asc
         raise NotImplementedError()
-    coslat = apply_ufunc(
-        np.cos, apply_ufunc(np.deg2rad, coord_to_cube(res, UM_LATLON[0]))
-    )
+    coslat = apply_ufunc(np.cos, apply_ufunc(np.deg2rad, coord_to_cube(res, UM_LATLON[0])))
     coslat.units = "1"
     mmstreamf_const = 2 * np.pi * coslat * const.radius.asc
     res = res * mmstreamf_const
@@ -458,20 +427,15 @@ def nondim_rossby_deformation_radius(cubelist, const=None, method="direct"):
 
     if method == "direct":
         rho = cubelist.extract_strict("air_density").copy()
-        bv_freq_proxy = (
-            spatial(vertical_mean(bv_freq_sq(cubelist), weight_by=rho), "mean") ** 0.5
-        )
+        bv_freq_proxy = spatial(vertical_mean(bv_freq_sq(cubelist), weight_by=rho), "mean") ** 0.5
         temp_proxy = spatial(
-            vertical_mean(cubelist.extract_strict("air_temperature"), weight_by=rho),
-            "mean",
+            vertical_mean(cubelist.extract_strict("air_temperature"), weight_by=rho), "mean"
         )
         scale_height = const.dry_air_gas_constant.asc * temp_proxy / const.gravity.asc
         nondim_rossby = (bv_freq_proxy * scale_height / double_omega_radius.asc) ** 0.5
     elif method == "leconte2013":
         temp_proxy = toa_eff_temp(cubelist)
-        _const_term = ScalarCube.from_cube(
-            const.dry_air_gas_constant / double_omega_radius
-        )
+        _const_term = ScalarCube.from_cube(const.dry_air_gas_constant / double_omega_radius)
         sqrt_t_over_cp = (temp_proxy / const.dry_air_spec_heat_press.asc) ** 0.5
         nondim_rossby = (sqrt_t_over_cp * _const_term.asc) ** 0.5
     nondim_rossby.convert_units("1")
@@ -552,7 +516,7 @@ def moist_static_energy(cubelist, const=None):
     except iris.exceptions.ConstraintMismatchError:
         varnames = ["air_temperature", "geopotential_height", "specific_humidity"]
         raise MissingCubeError(
-            f"{varnames} required for TOA energy balance are missing from cubelist:\n{cubelist}"
+            f"{varnames} required to calculate mixing ratio are missing from cubelist:\n{cubelist}"
         )
     # Dry component: c_p T + g z
     dry = temp * const.dry_air_spec_heat_press.asc + ghgt
@@ -639,9 +603,7 @@ def latent_heating_rate(cubelist):
     )
     lh = lsppn.copy()
     try:
-        lh += cubelist.extract_strict(
-            "change_over_time_in_air_temperature_due_to_convection"
-        )
+        lh += cubelist.extract_strict("change_over_time_in_air_temperature_due_to_convection")
     except iris.exceptions.ConstraintMismatchError:
         pass
     lh.rename("change_over_time_in_air_temperature_due_to_latent_heat_release")
