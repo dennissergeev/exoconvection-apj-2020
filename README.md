@@ -1,9 +1,17 @@
+[![arXiv preprint](https://img.shields.io/badge/arXiv-2004.03007-red)](https://arxiv.org/abs/2004.03007)
+
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+[![License](https://img.shields.io/badge/license-GPL3-green)](LICENSE)
+
 # Atmospheric convection plays a key role in the climate of tidally-locked terrestrial exoplanets: insights from high-resolution simulations
 **Denis E. Sergeev, F. Hugo Lambert, Nathan J. Mayne, Ian Boutle, James Manners, and Krisztian Kohary**
 
 **2020**
 
-**Submitted to *Astrophysical Journal***
+**Accepted to *Astrophysical Journal***
 
 Code used to process and visualise the model output.
 Model data are available upon request (raw data O(100 Gb)).
