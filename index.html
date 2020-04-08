@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Supplement to the exo-convection paper</title>
+  <title>Overview of the Trappist-1e case</title>
   <meta name="author" content="Denis Sergeev" />
 
   <!-- Bootstrap core CSS -->
@@ -19,29 +19,25 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow">
-    <div class="container h-100">
-      <a class="navbar-brand" href="#">Supplement to the exo-convection paper</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Paper</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/dennissergeev/exoconvection-apj-2020">Code</a>
-          </li>
-        </ul>
-      </div>
+    <span class="navbar-text">Supplement to "Atmospheric convection plays a key role in the climate of tidally-locked terrestrial exoplanets: insights from high-resolution simulations" by Sergeev <i>et al.</i> (2020)
+    </span>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://arxiv.org/abs/2004.03007">arXiv preprint</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/dennissergeev/exoconvection-apj-2020">Source code</a>
+        </li>
+      </ul>
     </div>
   </nav>
   <header>
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-12 text-center">
-          <h1 class="font-weight-light">Simulation of the Trappist-1e case</h1>
-          <p class="lead">Interactive 3D visualisation</p>
+          <h1 class="font-weight-light">Overview of the Trappist-1e case</h1>
+          <p class="lead">Interactive zoom and rotatable 3D visualisation</p>
         </div>
       </div>
     </div>
@@ -54,13 +50,33 @@
           <div class="card-body" align="center">
             <iframe class="iframe3d col-lg-36" src="page/view_scene.html?fileURL=../plots/trap1e_grcs_110d_view3d.vtkjs"></iframe>
             <div>
-              Cloud condensate, surface temperature, and free troposphere wind vectors in the <i>MassFlux</i> Trappist-1e simulation. The cloud condensate is shown using a threshold of total cloud condensate (liquid water plus ice).
+              The <i>MassFlux</i> simulation covers the whole sphere, while the <i>HighRes</i> simulation is shown by superimposing a high-resolution grid that covers only the substellar region. The graphic shows cloud condensate (white isosurfaces), surface temperature (shading), and free troposphere wind vectors (arrows). The cloud condensate is shown using a threshold of total cloud condensate (liquid water plus ice).
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>  
+
+  <footer class="footer">
+    <div class="container">
+      <!-- Grid row-->
+      <div class="row text-center d-flex justify-content-center pt-5 mb-3">
+        <!-- Grid column -->
+        <div class="col-md-6">
+          <h6>
+            <a href="https://github.com/dennissergeev/exoconvection-apj-2020/blob/master/code/Fig01-Model-Set-Up-3D.ipynb">Code for this figure</a>
+          </h6>
+        </div>
+        <!-- Grid column -->
+        <div class="col-md-6">
+          <h6>
+            <a href="https://docs.pyvista.org/">Made with PyVista</a>
+          </h6>
+        </div>
+      </div>
+    </div>
+  </footer>  
 
   <!-- Bootstrap core JavaScript -->
   <script src="page/vendor/jquery/jquery.slim.min.js"></script>
