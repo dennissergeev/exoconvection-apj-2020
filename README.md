@@ -1,3 +1,4 @@
+[![Published article](https://img.shields.io/badge/DOI-10.3847%2F1538--4357%2Fab8882-orange)](https://doi.org/10.3847/1538-4357/ab8882)
 [![arXiv preprint](https://img.shields.io/badge/arXiv-2004.03007-red)](https://arxiv.org/abs/2004.03007)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -5,16 +6,15 @@
 
 # Atmospheric convection plays a key role in the climate of tidally-locked terrestrial exoplanets: insights from high-resolution simulations
 **Denis E. Sergeev, F. Hugo Lambert, Nathan J. Mayne, Ian Boutle, James Manners, and Krisztian Kohary**
-
 **2020**
-
-**Accepted to *Astrophysical Journal***
+**Astrophysical Journal, 894:84 (19pp)**
 
 Code used to process and visualise the model output.
 Model data are available upon request (raw data O(100 Gb)).
 
 `page/` directory is for hosting an HTML page with an **[interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020)**.
 
+## Navigation
 Notebooks for each individual figure as well as for two data tables are in the [`code/` directory](code), while the figures themselves are in the `plots/` directory.
 
 ### Figures
@@ -41,3 +41,22 @@ Notebooks for each individual figure as well as for two data tables are in the [
 |---:|:--------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------|:----------------------------------------------|
 | 3 | [Mean global, day-side, and night-side surface temperature in the control and sensitivity simulations](tables/mean_sfc_temp_table.tex) | [Tab03-Mean-Sfc-Temp.ipynb](code/Tab03-Mean-Sfc-Temp.ipynb) | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
 | 4 | [Global top-of-atmosphere cloud radiative effect in the control and sensitivity simulations](tables/cre_table.tex)                     | [Tab04-CRE.ipynb](code/Tab04-CRE.ipynb)                     | [pp_main_gl_data.py](code/pp_main_gl_data.py) |
+
+## Bibtex
+
+    @article{SergeevEtAl2020,
+        archivePrefix = {arXiv},
+        arxivId = {2004.03007},
+        author = {Sergeev, Denis E. and Lambert, F. Hugo and Mayne, Nathan J. and Boutle, Ian A. and Manners, James and Kohary, Krisztian},
+        doi = {10.3847/1538-4357/ab8882},
+        eprint = {2004.03007},
+        issn = {1538-4357},
+        journal = {The Astrophysical Journal},
+        number = {2},
+        pages = {84},
+        publisher = {IOP Publishing},
+        title = {Atmospheric convection plays a key role in the climate of tidally-locked terrestrial exoplanets: insights from high-resolution simulations},
+        url = {https://iopscience.iop.org/article/10.3847/1538-4357/ab8882},
+        volume = {894},
+        year = {2020}
+    }
