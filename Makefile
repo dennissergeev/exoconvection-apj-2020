@@ -70,15 +70,20 @@ $(FIGURES):
 	$(EXEC_NB) $<
 
 
-.PHONY: clean help
+.PHONY: clean env help
 clean:
 	@echo "Cleaning..."
 	rm -f $(FIG_DIR)/*
 
+env:
+	@echo "Creating conda environment..."
+	conda env create -f environment.yml
+
 help:
 	@echo ""
 	@echo "Usage:"
+	@echo "    make env: create the conda environment"
 	@echo "    make all: run Jupyter Notebooks to create all figures"
-	@echo "    make clean: Delete files in plots/ folder"
-	@echo "    make help: Print this message and exit"
+	@echo "    make clean: delete files in plots/ folder"
+	@echo "    make help: print this message and exit"
 	@echo ""

@@ -14,6 +14,20 @@ Model data are available upon request (raw data O(100 Gb)).
 
 `page/` directory is for hosting an HTML page with an **[interactive version of Fig. 1](https://dennissergeev.github.io/exoconvection-apj-2020)**.
 
+## Running code
+To recreate the same conda environment for running Python code, follow these steps:
+1. Install [conda](https://docs.conda.io/en/latest/miniconda.html)
+2. Git-checkout or download this repository
+3. (on Linux/OSX) Navigate to the repository folder and run
+```
+make env
+```
+4. Activate the environment
+```
+conda activate sergeev2020
+```
+5. Run the notebooks manually or use `make` shortcuts (type `make help` for help)
+
 ## Navigation
 Notebooks for each individual figure as well as for two data tables are in the [`code/` directory](code), while the figures themselves are in the `plots/` directory.
 
